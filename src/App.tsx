@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useAppDispatch } from './store/store'
+import Body from './layout/Body'
+import { updateFilter } from './store/starWarsApi-slice'
 
 function App() {
+  const dispatch = useAppDispatch()
+
+  // ⚠️ this is an experimental operation
+  const handleClick = () =>
+    dispatch(
+      updateFilter([
+        {
+          id: 0,
+          name: 'name',
+          image: 'image',
+          gender: 'gender',
+          species: 'speceis',
+        },
+      ]),
+    )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={handleClick}>click</button>
+      <Body />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
