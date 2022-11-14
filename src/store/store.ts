@@ -10,7 +10,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(starWarsApi.middleware),
 })
 
+setupListeners(store.dispatch)
+
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch: () => AppDispatch = useDispatch
-
-setupListeners(store.dispatch)
