@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { starWarsApi } from './starWarsApi-slice'
+import { starWarsApi } from './api/starWars-api'
 
 export const store = configureStore({
   reducer: {

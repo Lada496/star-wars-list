@@ -1,4 +1,4 @@
-import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from '../types'
+import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from './starWars-types'
 
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []

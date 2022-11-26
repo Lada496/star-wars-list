@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAppDispatch } from './store/store'
+import { useAppDispatch } from './store'
 import { Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react'
 import SpeciesItem from './components/SpeciesItem'
 import Layout from './layout/Layout'
-import { useGetCharactorsQuery, updateFilter } from './store/starWarsApi-slice'
+import { useGetCharactorsQuery, updateFilter } from './api/starWars-api'
 
 function App() {
   const { data, error, isLoading } = useGetCharactorsQuery(undefined)

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import CharacterItem from './CharacterItem'
-import { ModifiedCharacter } from '../types'
+import { ModifiedCharacter } from '../api/starWars-types'
 
 type CharacterListProps = {
   characters: ModifiedCharacter[]

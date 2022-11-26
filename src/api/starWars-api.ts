@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RowCharacter, CharactersBySpecies, ModifiedCharacter } from '../types'
-import { modifyRowCharacters, categorizeCharacters } from '../utils/api'
+import { RowCharacter, CharactersBySpecies, ModifiedCharacter } from './starWars-types'
+import { modifyRowCharacters, categorizeCharacters } from './starWars-utils'
 
 export const starWarsApi = createApi({
   reducerPath: 'starWarsApi',
