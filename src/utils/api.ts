@@ -1,10 +1,8 @@
 import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from '../types'
 
-const calcBMI = (height: number, mass: number): number => mass / Math.pow(height, 2)
-
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []
-  console.log(characters, 'characters')
+  const calcBMI = (height: number, mass: number): number => mass / Math.pow(height, 2)
   for (const character of characters) {
     const bmi =
       character.height && character.mass ? calcBMI(character.height, character.mass) : undefined
