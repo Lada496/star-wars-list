@@ -10,7 +10,7 @@ type SpeciesItemProps = {
 
 const SpeciesItem = ({ name, characters }: SpeciesItemProps) => {
   return (
-    <TabPanel style={{ position: 'fixed' }}>
+    <TabPanel position='fixed' height='80vh' overflowY='scroll' w='100%'>
       <h1>{name}</h1>
       <CharacterList characters={characters} />
     </TabPanel>
