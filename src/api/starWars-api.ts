@@ -6,7 +6,7 @@ export const starWarsApi = createApi({
   reducerPath: 'starWarsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://akabab.github.io/starwars-api/api/' }),
   endpoints: (builder) => ({
-    getCharactors: builder.query<CharactersBySpecies, undefined>({
+    getCharacters: builder.query<CharactersBySpecies, undefined>({
       query: () => 'all.json',
       transformResponse: (response: RowCharacter[]): CharactersBySpecies => {
         const modifiedCharacters = modifyRowCharacters(response)
@@ -20,8 +20,8 @@ export const starWarsApi = createApi({
 // actions for updating only cache
 // ⚠️ this is an experomental operation
 export const updateFilter = (characters: ModifiedCharacter[]) =>
-  starWarsApi.util.updateQueryData('getCharactors', undefined, (draftPosts) => ({
+  starWarsApi.util.updateQueryData('getCharacters', undefined, (draftPosts) => ({
     ...draftPosts,
     new: characters,
   }))
-export const { useGetCharactorsQuery } = starWarsApi
+export const { useGetCharactersQuery } = starWarsApi

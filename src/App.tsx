@@ -3,10 +3,10 @@ import { useAppDispatch } from './store'
 import { Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react'
 import SpeciesItem from './components/SpeciesItem'
 import Layout from './layout/Layout'
-import { useGetCharactorsQuery, updateFilter } from './api/starWars-api'
+import { useGetCharactersQuery, updateFilter } from './api/starWars-api'
 
 function App() {
-  const { data, error, isLoading } = useGetCharactorsQuery(undefined)
+  const { data, error, isLoading } = useGetCharactersQuery(undefined)
   const dispatch = useAppDispatch()
 
   // TODO: create these components

@@ -27,12 +27,12 @@ export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharact
 
 export const categorizeCharacters = (characters: ModifiedCharacter[]): CharactersBySpecies => {
   const categorizedCharacters = characters.reduce(
-    (acc: CharactersBySpecies, charactor: ModifiedCharacter) => {
-      if (acc[charactor.species]) {
-        acc[charactor.species].push(charactor)
+    (acc: CharactersBySpecies, character: ModifiedCharacter) => {
+      if (acc[character.species]) {
+        acc[character.species].push(character)
         return acc
       }
-      acc[charactor.species] = [charactor]
+      acc[character.species] = [character]
       return acc
     },
     {},
