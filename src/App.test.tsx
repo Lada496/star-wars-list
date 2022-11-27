@@ -4,12 +4,12 @@ import { render, screen } from '@testing-library/react'
 import { store } from './store'
 import App from './App'
 
-test('renders learn react link', () => {
+test('renders learn react link', async () => {
   render(
     <Provider store={store}>
       <App />
     </Provider>,
   )
-  const linkElement = screen.getByText(/click/i)
+  const linkElement = await screen.findByRole('button', { name: /click/i })
   expect(linkElement).toBeInTheDocument()
 })
