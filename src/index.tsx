@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import './index.css'
 import App from './App'
-import { store } from './store/store'
+import { store } from './store'
 
 import reportWebVitals from './reportWebVitals'
 
