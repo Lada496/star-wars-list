@@ -17,7 +17,7 @@ export type RowCharacter = {
   skinColor?: string
   cybernetics?: string
   affiliations: string[]
-  masters?: string[]
+  masters?: string[] | string
   apprentices?: string[]
   formerAffiliations: string[]
   dateCreated?: number
@@ -29,7 +29,7 @@ export type RowCharacter = {
   class?: string
   sensorColor?: string
   platingColor?: string
-  equipment?: string
+  equipment?: string | string[]
   productLine?: string
   kajidic?: string
   era?: string[]
@@ -47,7 +47,7 @@ export type ModifiedCharacter = {
   height?: number
   mass?: number
   homeworld?: string
-  born?: number
+  born?: number | string
   died?: number
 }
 

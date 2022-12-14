@@ -2,7 +2,7 @@ import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from './starWars
 
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []
-  const calcBMI = (height: number, mass: number): number => mass / Math.pow(height, 2)
+  const calcBMI = (height: number, mass: number): number => +(mass / Math.pow(height, 2)).toFixed(2)
   for (const character of characters) {
     const bmi =
       character.height && character.mass ? calcBMI(character.height, character.mass) : undefined
