@@ -3,6 +3,7 @@ import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from './starWars
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []
   const calcBMI = (height: number, mass: number): number => +(mass / Math.pow(height, 2)).toFixed(2)
+  const convertToStarWarsDating = (year: number) => (year > 0 ? `${year} ABY` : `${year} BBY`)
   for (const character of characters) {
     const bmi =
       character.height && character.mass ? calcBMI(character.height, character.mass) : undefined
@@ -18,8 +19,8 @@ export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharact
         mass: character.mass,
       }),
       ...(character.homeworld && { homeworld: character.homeworld }),
-      ...(character.born && { born: character.born }),
-      ...(character.died && { died: character.died }),
+      ...(character.born && { born: convertToStarWarsDating(+character.born) }),
+      ...(character.died && { died: convertToStarWarsDating(+character.died) }),
     })
   }
   return modifiedCharacters

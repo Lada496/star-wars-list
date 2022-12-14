@@ -47,8 +47,8 @@ export type ModifiedCharacter = {
   height?: number
   mass?: number
   homeworld?: string
-  born?: number | string
-  died?: number
+  born?: string
+  died?: string
 }
 
 export type CharactersBySpecies = {

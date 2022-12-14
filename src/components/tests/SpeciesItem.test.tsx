@@ -12,9 +12,9 @@ describe('SpeciesItem', () => {
         </TabPanels>
       </Tabs>,
     )
-    const speciesName = screen.getByText(/human/i)
+    const speciesName = screen.getByRole('heading', { level: 1, name: /human/i })
     expect(speciesName).toBeInTheDocument()
-    const characterselement = screen.getByRole('list')
+    const characterselement = screen.getByRole('characters-list')
     expect(characterselement).toBeInTheDocument()
   })
 })

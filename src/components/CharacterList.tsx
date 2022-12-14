@@ -9,7 +9,7 @@ type CharacterListProps = {
 
 const CharacterList = ({ characters }: CharacterListProps) => {
   return (
-    <ul>
+    <ul role='characters-list'>
       {characters.map((character) => (
         <CharacterItem key={character.id} character={character} />
       ))}
