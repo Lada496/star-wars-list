@@ -22,8 +22,9 @@ const CharacterDetails = ({ details }: CharacterItemProps) => {
       {details.homeworld && <li>Homeworld: {details.homeworld}</li>}
       {details.born && <li>Year of birth: {details.born}</li>}
       {details.died && <li>Dyear of death: {details.died}</li>}
-      {details.height && <li>Height: {details.height} m</li>}
-      {details.mass && <li>Weight: {details.mass} kg</li>}
+      {/* assuning we have no character who has 0 m of height nor 0 kg of mass  */}
+      {details.height ? <li>Height: {details.height} m</li> : null}
+      {details.mass ? <li>Weight: {details.mass} kg</li> : null}
     </>
   )
 }

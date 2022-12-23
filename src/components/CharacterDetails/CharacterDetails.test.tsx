@@ -20,4 +20,14 @@ describe('CharacterDetails', () => {
     const noDataMessage = screen.getByText(/no detailed data/i)
     expect(noDataMessage).toBeInTheDocument()
   })
+  test('render height properly when it is 0 ', () => {
+    render(<CharacterDetails details={{ height: 0 }} />)
+    const heightIs0m = screen.queryByText(0)
+    expect(heightIs0m).not.toBeInTheDocument()
+  })
+  test('render mass properly when it is 0', () => {
+    render(<CharacterDetails details={{ mass: 0 }} />)
+    const massIs0kg = screen.queryByText(0)
+    expect(massIs0kg).not.toBeInTheDocument()
+  })
 })
