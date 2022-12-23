@@ -9,7 +9,7 @@ type CharacterItemProps = {
 
 const CharacterItem = ({ character }: CharacterItemProps) => {
   const { name, image, species, gender, ...others } = character
-  const [showDetails, setShowDetails] = useState(false)
+  const [isShowDetails, setIsShowDetails] = useState(false)
   return (
     <li>
       <h2>{name}</h2>
@@ -18,8 +18,8 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
         <li>Species: {species}</li>
         <li>Gender: {gender}</li>
         {character.bmi && <li>BMI: {character.bmi}</li>}
-        <button onClick={() => setShowDetails(!showDetails)}>View details</button>
-        {showDetails && <CharacterDetails details={others} />}
+        <button onClick={() => setIsShowDetails(!isShowDetails)}>View details</button>
+        {isShowDetails && <CharacterDetails details={others} />}
       </ul>
     </li>
   )
