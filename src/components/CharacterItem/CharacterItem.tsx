@@ -18,7 +18,9 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
         <li>Species: {species}</li>
         <li>Gender: {gender}</li>
         {character.bmi && <li>BMI: {character.bmi}</li>}
-        <button onClick={() => setIsShowDetails(!isShowDetails)}>View details</button>
+        <button onClick={() => setIsShowDetails(!isShowDetails)}>
+          {isShowDetails ? 'Hide details' : 'View details'}
+        </button>
         {isShowDetails && <CharacterDetails details={others} />}
       </ul>
     </li>

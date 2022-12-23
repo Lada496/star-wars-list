@@ -39,15 +39,16 @@ describe('CharacterItem', () => {
 
   test('show details when users click the button and hide them when users click it again', async () => {
     render(<CharacterItem character={withBmiCharacter} />)
-    const viewDetailsButton = screen.getByRole('button')
+    const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
 
     // show details
     userEvent.click(viewDetailsButton)
     const height = await screen.findByText(/height/i)
     expect(height).toBeInTheDocument()
+    const hideDetailsButton = await screen.getByRole('button', { name: /hide details/i })
 
     // hide details
-    userEvent.click(viewDetailsButton)
+    userEvent.click(hideDetailsButton)
     const noHeight = await screen.queryByText(/height/i)
     expect(noHeight).not.toBeInTheDocument()
   })
