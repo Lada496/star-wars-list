@@ -1,5 +1,5 @@
 import { ModifiedCharacter } from '../starWars-types'
-export const modifiedCharacters: ModifiedCharacter[] = [
+export const mockModifiedCharacters: ModifiedCharacter[] = [
   {
     id: 1,
     name: 'Luke Skywalker',

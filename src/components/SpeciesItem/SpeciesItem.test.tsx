@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { Tabs, TabPanels } from '@chakra-ui/react'
 import SpeciesItem from './SpeciesItem'
-import { modifiedCharacters } from '../../api/mocks/modifiedCharacters'
+import { mockModifiedCharacters } from '../../api/mocks/mockModifiedCharacters'
 
 describe('SpeciesItem', () => {
   test('renders a species list', () => {
     render(
       <Tabs>
         <TabPanels>
-          <SpeciesItem name='human' characters={modifiedCharacters} />
+          <SpeciesItem name='human' characters={mockModifiedCharacters} />
         </TabPanels>
       </Tabs>,
     )

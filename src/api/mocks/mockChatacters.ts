@@ -1,5 +1,5 @@
 import { RowCharacter } from '../starWars-types'
-export const characterMocks: RowCharacter[] = [
+export const mockChatacters: RowCharacter[] = [
   {
     id: 1,
     name: 'Luke Skywalker',
