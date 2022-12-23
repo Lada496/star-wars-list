@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Image } from '@chakra-ui/react'
-import { ModifiedCharacter } from '../api/starWars-types'
-import CharacterDetails from './CharacterDetails'
+import { ModifiedCharacter } from '../../api/starWars-types'
+import CharacterDetails from '../CharacterDetails/CharacterDetails'
 
 type CharacterItemProps = {
   character: ModifiedCharacter

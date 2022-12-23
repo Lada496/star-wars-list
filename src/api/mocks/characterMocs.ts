@@ -1,4 +1,4 @@
-import { RowCharacter } from '../api/starWars-types'
+import { RowCharacter } from '../starWars-types'
 export const characterMocks: RowCharacter[] = [
   {
     id: 1,
@@ -23,7 +23,7 @@ export const characterMocks: RowCharacter[] = [
       'Red Squadron',
       'Rogue Squadron',
       'Massassi Group',
-      'Leia Organa\'s team',
+      "Leia Organa's team",
       'Endor strike team',
       'Jedi Order',
       'Bright Tree tribe',
@@ -64,7 +64,7 @@ export const characterMocks: RowCharacter[] = [
       'Galactic Empire',
       'Alliance to Restore the Republic',
       'Massassi Group',
-      'Leia Organa\'s team',
+      "Leia Organa's team",
       'Pathfinders',
       'Endor strike team',
       'Bright Tree tribe',
@@ -96,7 +96,7 @@ export const characterMocks: RowCharacter[] = [
     equipment: [
       'Buzz saw',
       'Electric pike',
-      'Drinks tray (Only on Jabba\'s Sail Barge)',
+      "Drinks tray (Only on Jabba's Sail Barge)",
       'Fusion welder',
       'Data probe',
       'Power recharge coupler',
@@ -109,14 +109,14 @@ export const characterMocks: RowCharacter[] = [
       'Royal House of Naboo',
       'Galactic Republic',
       '501st Legion',
-      'R2-D2\'s battle droid squadron',
+      "R2-D2's battle droid squadron",
       'D-Squad',
       'House of Organa',
       'Galactic Empire',
       'Alliance to Restore the Republic',
       'Massassi Group',
       'Red Squadron',
-      'Leia Organa\'s team',
+      "Leia Organa's team",
       'Endor strike team',
       'Bright Tree tribe',
       'Resistance',
@@ -175,7 +175,7 @@ export const characterMocks: RowCharacter[] = [
       'Imperial Senate',
       'Alliance to Restore the Republic',
       'Massassi Group',
-      'Leia Organa\'s team',
+      "Leia Organa's team",
       'Endor strike team',
       'Alliance High Command',
       'Bright Tree tribe',

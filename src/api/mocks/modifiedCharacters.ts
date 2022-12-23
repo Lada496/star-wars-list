@@ -1,4 +1,4 @@
-import { ModifiedCharacter } from '../../../api/starWars-types'
+import { ModifiedCharacter } from '../starWars-types'
 export const modifiedCharacters: ModifiedCharacter[] = [
   {
     id: 1,

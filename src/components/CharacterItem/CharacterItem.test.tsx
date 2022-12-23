@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ModifiedCharacter } from '../../api/starWars-types'
-import CharacterItem from '../CharacterItem'
+import CharacterItem from './CharacterItem'
 
 const withBmiCharacter: ModifiedCharacter = {
   id: 1,

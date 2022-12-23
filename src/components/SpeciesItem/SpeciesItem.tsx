@@ -1,7 +1,7 @@
 import React from 'react'
 import { TabPanel } from '@chakra-ui/react'
-import CharacterList from './CharacterList'
-import { ModifiedCharacter } from '../api/starWars-types'
+import CharacterList from '../CharacterList/CharacterList'
+import { ModifiedCharacter } from '../../api/starWars-types'
 
 type SpeciesItemProps = {
   name: string

@@ -2,7 +2,7 @@ import React from 'react'
 import { isEmpty } from 'lodash'
 import { useAppDispatch } from './store'
 import { Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react'
-import SpeciesItem from './components/SpeciesItem'
+import SpeciesItem from './components/SpeciesItem/SpeciesItem'
 import Layout from './layouts/PageContainer'
 import { useGetCharactersQuery, updateFilter } from './api/starWars-api'
 

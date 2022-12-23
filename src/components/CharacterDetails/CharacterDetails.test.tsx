@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react'
-import CharacterDetails, { CharacterDetailsObject } from '../CharacterDetails'
+import CharacterDetails, { CharacterDetailsObject } from './CharacterDetails'
 
 const details: CharacterDetailsObject = {
   bmi: 24.68,
