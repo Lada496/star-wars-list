@@ -1,8 +1,9 @@
 import React from 'react'
+import { isEmpty } from 'lodash'
 import { useAppDispatch } from './store'
 import { Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react'
 import SpeciesItem from './components/SpeciesItem'
-import Layout from './layout/Layout'
+import Layout from './layouts/PageContainer'
 import { useGetCharactersQuery, updateFilter } from './api/starWars-api'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
   // TODO: create these components
   if (isLoading) return <div>Loading</div>
   if (error) return <div>Error</div>
-  if (!data) return <div>No data found</div>
+  if (!data || isEmpty(data)) return <div>No data found</div>
 
   // ⚠️ this is an experimental operation
   const handleClick = () =>

@@ -9,6 +9,7 @@ export const starWarsApi = createApi({
     getCharacters: builder.query<CharactersBySpecies, undefined>({
       query: () => 'all.json',
       transformResponse: (response: RowCharacter[]): CharactersBySpecies => {
+        if (response.length === 0) return {}
         const modifiedCharacters = modifyRowCharacters(response)
         const categorizedCharacters = categorizeCharacters(modifiedCharacters)
         return categorizedCharacters
