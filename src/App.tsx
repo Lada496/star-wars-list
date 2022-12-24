@@ -5,6 +5,7 @@ import { Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react'
 import SpeciesItem from './components/SpeciesItem/SpeciesItem'
 import Layout from './layouts/PageContainer'
 import { useGetCharactersQuery, updateFilter } from './api/starWars-api'
+import AllSpecies from './components/AllSpecies/AllSpecies'
 
 function App() {
   const { data, error, isLoading } = useGetCharactersQuery(undefined)
@@ -14,6 +15,8 @@ function App() {
   if (isLoading) return <div>Loading</div>
   if (error) return <div>Error</div>
   if (!data || isEmpty(data)) return <div>No data found</div>
+
+  const { all, ...charactersBySpecies } = data
 
   // ⚠️ this is an experimental operation
   const handleClick = () =>
@@ -40,8 +43,9 @@ function App() {
           </TabList>
 
           <TabPanels>
-            {Object.keys(data).map((key) => (
-              <SpeciesItem key={key} name={key} characters={data[key]} />
+            <AllSpecies characters={all} />
+            {Object.keys(charactersBySpecies).map((key) => (
+              <SpeciesItem key={key} name={key} characters={charactersBySpecies[key]} />
             ))}
           </TabPanels>
         </Tabs>

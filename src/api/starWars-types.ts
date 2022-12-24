@@ -51,6 +51,6 @@ export type ModifiedCharacter = {
   died?: string
 }
 
-export type CharactersBySpecies = {
+export type CategorizedCharacters = {
   [species: string]: ModifiedCharacter[]
 }

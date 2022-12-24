@@ -35,7 +35,7 @@ describe('App', () => {
     expect(loading).toBeInTheDocument()
 
     await waitFor(() => {
-      expect(screen.getByText('Luke Skywalker')).toBeInTheDocument()
+      expect(screen.getByText(/all characters/i)).toBeInTheDocument()
     })
 
     const notLoading = screen.queryByText(/loading/i)

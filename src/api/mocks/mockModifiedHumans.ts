@@ -1,5 +1,5 @@
 import { ModifiedCharacter } from '../starWars-types'
-export const mockModifiedCharacters: ModifiedCharacter[] = [
+export const mockModifiedHumans: ModifiedCharacter[] = [
   {
     id: 1,
     name: 'Luke Skywalker',
@@ -12,31 +12,6 @@ export const mockModifiedCharacters: ModifiedCharacter[] = [
     homeworld: 'tatooine',
     born: '-19 BBY',
     died: '34 ABY',
-  },
-  {
-    id: 2,
-    name: 'C-3PO',
-    image:
-      'https://vignette.wikia.nocookie.net/starwars/images/3/3f/C-3PO_TLJ_Card_Trader_Award_Card.png',
-    gender: 'male',
-    species: 'droid',
-    bmi: 25.65,
-    height: 1.71,
-    mass: 75,
-    homeworld: 'tatooine',
-    born: '-112 BBY',
-  },
-  {
-    id: 3,
-    name: 'R2-D2',
-    image: 'https://vignette.wikia.nocookie.net/starwars/images/e/eb/ArtooTFA2-Fathead.png',
-    gender: 'male',
-    species: 'droid',
-    bmi: 26.93,
-    height: 1.09,
-    mass: 32,
-    homeworld: 'naboo',
-    born: '-33 BBY',
   },
   {
     id: 4,
@@ -86,17 +61,6 @@ export const mockModifiedCharacters: ModifiedCharacter[] = [
     mass: 75,
     homeworld: 'tatooine',
     born: '-47 BBY',
-  },
-  {
-    id: 8,
-    name: 'R5-D4',
-    image: 'https://vignette.wikia.nocookie.net/starwars/images/c/cb/R5-D4_Sideshow.png',
-    gender: 'male',
-    species: 'droid',
-    bmi: 34.01,
-    height: 0.97,
-    mass: 32,
-    homeworld: 'tatooine',
   },
   {
     id: 9,

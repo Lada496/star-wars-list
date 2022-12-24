@@ -1,4 +1,4 @@
-import { RowCharacter, ModifiedCharacter, CharactersBySpecies } from './starWars-types'
+import { RowCharacter, ModifiedCharacter, CategorizedCharacters } from './starWars-types'
 
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []
@@ -26,9 +26,9 @@ export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharact
   return modifiedCharacters
 }
 
-export const categorizeCharacters = (characters: ModifiedCharacter[]): CharactersBySpecies => {
+export const categorizeCharacters = (characters: ModifiedCharacter[]): CategorizedCharacters => {
   const categorizedCharacters = characters.reduce(
-    (acc: CharactersBySpecies, character: ModifiedCharacter) => {
+    (acc: CategorizedCharacters, character: ModifiedCharacter) => {
       if (acc[character.species]) {
         acc[character.species].push(character)
         return acc
