@@ -9,4 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run tests
         run: |
-          yarn test
+          npm test
+        env:
+          CI: false
