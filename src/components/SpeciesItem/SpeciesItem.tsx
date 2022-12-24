@@ -1,4 +1,5 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 import CharacterList from '../CharacterList/CharacterList'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import TabPanelContainer from '../UI/TabPanelContainer'
@@ -11,7 +12,9 @@ type SpeciesItemProps = {
 const SpeciesItem = ({ name, characters }: SpeciesItemProps) => {
   return (
     <TabPanelContainer>
-      <h1>{name}</h1>
+      <Heading as='h1' size='lg' textTransform='capitalize'>
+        {name}
+      </Heading>
       <CharacterList characters={characters} />
     </TabPanelContainer>
   )

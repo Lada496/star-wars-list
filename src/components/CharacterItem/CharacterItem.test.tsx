@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { UnorderedList } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import CharacterItem from './CharacterItem'
 
@@ -24,7 +25,11 @@ const withoutBmiCharacter: ModifiedCharacter = {
 
 describe('CharacterItem', () => {
   test('renders a character item with bmi if they have', () => {
-    render(<CharacterItem character={withBmiCharacter} />)
+    render(
+      <UnorderedList>
+        <CharacterItem character={withBmiCharacter} />
+      </UnorderedList>,
+    )
     const character = screen.getByText(withBmiCharacter.name)
     expect(character).toBeInTheDocument()
     const bmi = screen.getByText(/bmi/i)
@@ -32,13 +37,21 @@ describe('CharacterItem', () => {
   })
 
   test('renders a character item witout bmi if not', () => {
-    render(<CharacterItem character={withoutBmiCharacter} />)
+    render(
+      <UnorderedList>
+        <CharacterItem character={withoutBmiCharacter} />
+      </UnorderedList>,
+    )
     const bmi = screen.queryByText(/bmi/i)
     expect(bmi).not.toBeInTheDocument()
   })
 
   test('show details when users click the button and hide them when users click it again', async () => {
-    render(<CharacterItem character={withBmiCharacter} />)
+    render(
+      <UnorderedList>
+        <CharacterItem character={withBmiCharacter} />
+      </UnorderedList>,
+    )
     const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
 
     // show details

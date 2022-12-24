@@ -1,6 +1,8 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 
+import ListItemWithoutBullet from '../UI/ListItemWithoutBullet'
+
 export type CharacterDetailsObject = {
   bmi?: number
   height?: number
@@ -19,12 +21,20 @@ const CharacterDetails = ({ details }: CharacterItemProps) => {
 
   return (
     <>
-      {details.homeworld && <li>Homeworld: {details.homeworld}</li>}
-      {details.born && <li>Year of birth: {details.born}</li>}
-      {details.died && <li>Dyear of death: {details.died}</li>}
+      {details.homeworld && (
+        <ListItemWithoutBullet>Homeworld: {details.homeworld}</ListItemWithoutBullet>
+      )}
+      {details.born && <ListItemWithoutBullet>Year of birth: {details.born}</ListItemWithoutBullet>}
+      {details.died && (
+        <ListItemWithoutBullet>Dyear of death: {details.died}</ListItemWithoutBullet>
+      )}
       {/* assuning we have no character who has 0 m of height nor 0 kg of mass  */}
-      {details.height ? <li>Height: {details.height} m</li> : null}
-      {details.mass ? <li>Weight: {details.mass} kg</li> : null}
+      {details.height ? (
+        <ListItemWithoutBullet>Height: {details.height} m</ListItemWithoutBullet>
+      ) : null}
+      {details.mass ? (
+        <ListItemWithoutBullet>Weight: {details.mass} kg</ListItemWithoutBullet>
+      ) : null}
     </>
   )
 }

@@ -1,4 +1,5 @@
 import { screen, render } from '@testing-library/react'
+import { UnorderedList } from '@chakra-ui/react'
 import CharacterDetails, { CharacterDetailsObject } from './CharacterDetails'
 
 const details: CharacterDetailsObject = {
@@ -9,7 +10,11 @@ const details: CharacterDetailsObject = {
 
 describe('CharacterDetails', () => {
   test('render a character detailes', () => {
-    render(<CharacterDetails details={details} />)
+    render(
+      <UnorderedList>
+        <CharacterDetails details={details} />
+      </UnorderedList>,
+    )
     const detailsItems = screen.getAllByRole('listitem')
 
     // not render bmi as it is default information
