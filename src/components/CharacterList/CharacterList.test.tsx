@@ -1,10 +1,10 @@
 import { screen, render } from '@testing-library/react'
-import CharacterList from '../CharacterList'
-import { modifiedCharacters } from './mocks/modifiedCharacters'
+import CharacterList from './CharacterList'
+import { mockModifiedHumans } from '../../api/mocks/mockModifiedHumans'
 
 describe('CharacterList', () => {
   test('renders a list of characters', () => {
-    render(<CharacterList characters={modifiedCharacters} />)
+    render(<CharacterList characters={mockModifiedHumans} />)
     const characters = screen.getAllByRole('listitem')
     expect(characters).toHaveLength(characters.length)
   })
