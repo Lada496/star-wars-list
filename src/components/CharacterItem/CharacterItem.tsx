@@ -12,13 +12,15 @@ import { ModifiedCharacter } from '../../api/starWars-types'
 import ListItemWithoutBullet from '../UI/ListItemWithoutBullet'
 import CharacterDetails from '../CharacterDetails/CharacterDetails'
 
+type WithoutIdCharacter = Omit<ModifiedCharacter, 'id'>
+
 type CharacterItemProps = {
-  character: ModifiedCharacter
+  character: WithoutIdCharacter
 }
 
 const CharacterItem = ({ character }: CharacterItemProps) => {
   // delete id property from details props
-  const { id, name, image, species, gender, ...others } = character
+  const { name, image, species, gender, ...others } = character
   const [isShowDetails, setIsShowDetails] = useState(false)
   return (
     <ListItemWithoutBullet>
