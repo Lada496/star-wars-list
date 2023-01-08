@@ -24,7 +24,7 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
   const [isShowDetails, setIsShowDetails] = useState(false)
   return (
     <ListItemWithoutBullet>
-      <Center py={6}>
+      <Center py={6} role='character-item'>
         <Box
           w='240px'
           h='320px'
