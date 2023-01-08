@@ -11,9 +11,10 @@ const CharacterList = ({ characters }: CharacterListProps) => {
   return (
     <UnorderedList role='characters-list'>
       <SimpleGrid spacing='20px' columns={{ sm: 1, md: 3, lg: 4 }}>
-        {characters.map((character) => (
-          <CharacterItem key={character.id} character={character} />
-        ))}
+        {characters.map((characterElement) => {
+          const { id, ...character } = characterElement
+          return <CharacterItem key={id} character={character} />
+        })}
       </SimpleGrid>
     </UnorderedList>
   )
