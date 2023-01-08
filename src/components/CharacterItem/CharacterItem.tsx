@@ -17,7 +17,8 @@ type CharacterItemProps = {
 }
 
 const CharacterItem = ({ character }: CharacterItemProps) => {
-  const { name, image, species, gender, ...others } = character
+  // delete id property from details props
+  const { id, name, image, species, gender, ...others } = character
   const [isShowDetails, setIsShowDetails] = useState(false)
   return (
     <ListItemWithoutBullet>
