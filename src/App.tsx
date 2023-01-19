@@ -1,7 +1,9 @@
 import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { useAppDispatch } from './store'
-import { Tabs, TabList, TabPanels, Tab, Text } from '@chakra-ui/react'
+
+import Tabs from './components/UI/Tabs/Tabs'
 import SpeciesItem from './components/SpeciesItem/SpeciesItem'
 import Layout from './layouts/PageContainer'
 import { useGetCharactersQuery, updateFilter } from './api/starWars-api'
@@ -35,21 +37,18 @@ function App() {
     <Layout>
       <>
         <button onClick={handleClick}>click</button>
-        <Tabs orientation='vertical' height='80vh' overflowY='scroll' variant='unstyled'>
-          <TabList>
-            {Object.keys(data).map((key) => (
-              <Tab key={key} _selected={{ color: 'white', bg: 'black' }}>
-                <Text casing='capitalize'>{key}</Text>
-              </Tab>
-            ))}
-          </TabList>
-
-          <TabPanels>
-            <AllSpecies characters={all} />
+        <Tabs tabKeys={Object.keys(data)}>
+          <Routes>
+            <Route path='all' element={<AllSpecies characters={all} />} />
             {Object.keys(charactersBySpecies).map((key) => (
-              <SpeciesItem key={key} name={key} characters={charactersBySpecies[key]} />
+              <Route
+                key={key}
+                path={key}
+                element={<SpeciesItem key={key} name={key} characters={charactersBySpecies[key]} />}
+              />
             ))}
-          </TabPanels>
+            <Route path='*' element={<Navigate to='all' />} />
+          </Routes>
         </Tabs>
       </>
     </Layout>
