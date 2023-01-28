@@ -1,5 +1,4 @@
 import React from 'react'
-import { isEmpty } from 'lodash'
 
 import ListItemWithoutBullet from '../UI/ListItemWithoutBullet/ListItemWithoutBullet'
 
@@ -17,8 +16,6 @@ type CharacterItemProps = {
 }
 
 const CharacterDetails = ({ details }: CharacterItemProps) => {
-  if (isEmpty(details)) return <p>No detailed Data</p>
-
   return (
     <>
       {details.homeworld && (

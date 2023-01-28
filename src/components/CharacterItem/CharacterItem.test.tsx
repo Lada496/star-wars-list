@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UnorderedList } from '@chakra-ui/react'
-import { ModifiedCharacter } from '../../api/starWars-types'
-import CharacterItem from './CharacterItem'
+import CharacterItem, { WithoutIdCharacter } from './CharacterItem'
 
-const withBmiCharacter: ModifiedCharacter = {
-  id: 1,
+const withBmiCharacter: WithoutIdCharacter = {
   name: 'Full Name',
   image: 'image.com',
   gender: 'gender',
@@ -15,8 +13,7 @@ const withBmiCharacter: ModifiedCharacter = {
   mass: 73,
 }
 
-const withoutBmiCharacter: ModifiedCharacter = {
-  id: 1,
+const withoutBmiCharacter: WithoutIdCharacter = {
   name: 'Full Name',
   image: 'image.com',
   gender: 'gender',
@@ -44,6 +41,20 @@ describe('CharacterItem', () => {
     )
     const bmi = screen.queryByText(/bmi/i)
     expect(bmi).not.toBeInTheDocument()
+  })
+
+  test('renders properly when no detailed data available', async () => {
+    render(
+      <UnorderedList>
+        <CharacterItem character={withoutBmiCharacter} />
+      </UnorderedList>,
+    )
+
+    const viewDetailsButton = await screen.queryByRole('button', { name: /view details/i })
+    const noDetailsDataMessage = screen.getByText(/no detailed data/i)
+
+    expect(viewDetailsButton).not.toBeInTheDocument()
+    expect(noDetailsDataMessage).toBeInTheDocument()
   })
 
   test('show details when users click the button and hide them when users click it again', async () => {
