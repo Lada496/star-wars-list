@@ -52,17 +52,25 @@ describe('CharacterItem', () => {
         <CharacterItem character={withBmiCharacter} />
       </UnorderedList>,
     )
+    // Assign - grab all expected elements to be used in the test
     const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
 
-    // show details
+    // Act - interact by pressing button
     userEvent.click(viewDetailsButton)
-    const height = await screen.findByText(/height/i)
+
+    // Assign
+    const height = await screen.queryByText(/height/i)
+
+    // Assert - make sure the height element is in the screen
     expect(height).toBeInTheDocument()
+
+    // Assign - hide details
     const hideDetailsButton = await screen.getByRole('button', { name: /hide details/i })
 
-    // hide details
+    // Act
     userEvent.click(hideDetailsButton)
-    const noHeight = await screen.queryByText(/height/i)
-    expect(noHeight).not.toBeInTheDocument()
+
+    // Assert - no hight button
+    expect(height).not.toBeInTheDocument()
   })
 })
