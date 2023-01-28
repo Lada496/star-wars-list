@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 
-import ListItemWithoutBullet from '../UI/ListItemWithoutBullet'
+import ListItemWithoutBullet from '../UI/ListItemWithoutBullet/ListItemWithoutBullet'
 
 export type CharacterDetailsObject = {
   bmi?: number

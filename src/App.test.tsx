@@ -1,7 +1,9 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { rest } from 'msw'
 import { Provider } from 'react-redux'
 import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { server } from './testHelpers/server'
 import { store } from './store'
 import App from './App'
@@ -29,6 +31,7 @@ describe('App', () => {
       <Provider store={store}>
         <App />
       </Provider>,
+      { wrapper: BrowserRouter },
     )
 
     const loading = screen.getByText(/loading/i)
@@ -51,6 +54,7 @@ describe('App', () => {
       <Provider store={store}>
         <App />
       </Provider>,
+      { wrapper: BrowserRouter },
     )
     await waitFor(() => {
       expect(screen.getByText('No data found')).toBeInTheDocument()
@@ -66,9 +70,45 @@ describe('App', () => {
       <Provider store={store}>
         <App />
       </Provider>,
+      { wrapper: BrowserRouter },
     )
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument()
     })
+  })
+})
+
+describe('App | Router', () => {
+  const renderWithRouter = (ui: React.ReactElement, { route = '/' } = {}) => {
+    window.history.pushState({}, 'Test Page', route)
+    return {
+      user: userEvent,
+      ...render(ui, { wrapper: BrowserRouter }),
+    }
+  }
+  test('User can choose what species page to visit', async () => {
+    const { user } = renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('link', { name: /human/i })).toBeInTheDocument()
+    })
+    const navLinkToHuman = screen.getByRole('link', { name: /human/i })
+    await user.click(navLinkToHuman)
+
+    expect(screen.getByRole('heading', { level: 1, name: /human/i })).toBeInTheDocument()
+  })
+  test('Redirect to All characters page when user visit any bad path', () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      { route: '/pathname-that-does-not-match-any-species-name' },
+    )
+
+    expect(screen.getByRole('heading', { level: 1, name: /all characters/i }))
   })
 })

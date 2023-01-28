@@ -1,7 +1,6 @@
 import AllSpecies from './AllSpecies'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Tabs, TabPanels } from '@chakra-ui/react'
 import { mockModifiedCharacters } from '../../api/mocks/mockModifiedCharacters'
 
 const charactersForSort = [
@@ -36,26 +35,14 @@ const charactersForSort = [
 
 describe('AllSpecies', () => {
   test('render multiple kinds of spiceis characters in one list', () => {
-    render(
-      <Tabs>
-        <TabPanels>
-          <AllSpecies characters={mockModifiedCharacters} />
-        </TabPanels>
-      </Tabs>,
-    )
+    render(<AllSpecies characters={mockModifiedCharacters} />)
     const humans = screen.getAllByText(/human/i)
     expect(humans.length).toBeGreaterThan(0)
     const droids = screen.getAllByText(/droid/i)
     expect(droids.length).toBeGreaterThan(0)
   })
   test('render characters descendingly sorted by their height ', async () => {
-    render(
-      <Tabs>
-        <TabPanels>
-          <AllSpecies characters={charactersForSort} />
-        </TabPanels>
-      </Tabs>,
-    )
+    render(<AllSpecies characters={charactersForSort} />)
     await userEvent.selectOptions(screen.getByRole('combobox'), 'height')
     const characters = screen.getAllByRole('character-item')
 
@@ -65,13 +52,7 @@ describe('AllSpecies', () => {
   })
 
   test('render characters descendingly sorted by their mass ', async () => {
-    render(
-      <Tabs>
-        <TabPanels>
-          <AllSpecies characters={charactersForSort} />
-        </TabPanels>
-      </Tabs>,
-    )
+    render(<AllSpecies characters={charactersForSort} />)
     await userEvent.selectOptions(screen.getByRole('combobox'), 'mass')
     const characters = screen.getAllByRole('character-item')
 
@@ -81,13 +62,7 @@ describe('AllSpecies', () => {
   })
 
   test('render characters get back to the original order when user select Sort by ', async () => {
-    render(
-      <Tabs>
-        <TabPanels>
-          <AllSpecies characters={charactersForSort} />
-        </TabPanels>
-      </Tabs>,
-    )
+    render(<AllSpecies characters={charactersForSort} />)
 
     // Change order
     await userEvent.selectOptions(screen.getByRole('combobox'), 'mass')

@@ -1,8 +1,7 @@
 import React, { useReducer } from 'react'
-import { Heading, Select } from '@chakra-ui/react'
+import { Heading, Select, Box } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import CharacterList from '../CharacterList/CharacterList'
-import TabPanelContainer from '../UI/TabPanelContainer'
 
 type AllSpeciesProps = {
   characters: ModifiedCharacter[]
@@ -53,7 +52,7 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
   })
 
   return (
-    <TabPanelContainer>
+    <Box>
       <Heading as='h1' size='lg'>
         All characters
       </Heading>
@@ -66,7 +65,7 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
         <option value='mass'>Mass</option>
       </Select>
       <CharacterList characters={state.modifiedCharacters} />
-    </TabPanelContainer>
+    </Box>
   )
 }
 
