@@ -71,7 +71,7 @@ describe('App | Router', () => {
       expect(getByRole('link', { name: /human/i })).toBeInTheDocument()
     })
     const navLinkToHuman = getByRole('link', { name: /human/i })
-    await user.click(navLinkToHuman)
+    user.click(navLinkToHuman)
 
     expect(getByRole('heading', { level: 1, name: /human/i })).toBeInTheDocument()
   })

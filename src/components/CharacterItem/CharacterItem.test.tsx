@@ -50,7 +50,7 @@ describe('CharacterItem', () => {
       </UnorderedList>,
     )
 
-    const viewDetailsButton = await screen.queryByRole('button', { name: /view details/i })
+    const viewDetailsButton = screen.queryByRole('button', { name: /view details/i })
     const noDetailsDataMessage = screen.getByText(/no detailed data/i)
 
     expect(viewDetailsButton).not.toBeInTheDocument()
@@ -63,25 +63,22 @@ describe('CharacterItem', () => {
         <CharacterItem character={withBmiCharacter} />
       </UnorderedList>,
     )
-    // Assign - grab all expected elements to be used in the test
     const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
+    const heightQuery = /height/i
 
-    // Act - interact by pressing button
+    // Make sure undesired element is rendered by default
+    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
+
+    // Show details
     userEvent.click(viewDetailsButton)
 
-    // Assign
-    const height = await screen.queryByText(/height/i)
+    expect(screen.queryByText(heightQuery)).toBeInTheDocument()
 
-    // Assert - make sure the height element is in the screen
-    expect(height).toBeInTheDocument()
+    const hideDetailsButton = screen.getByRole('button', { name: /hide details/i })
 
-    // Assign - hide details
-    const hideDetailsButton = await screen.getByRole('button', { name: /hide details/i })
-
-    // Act
+    // Hide details
     userEvent.click(hideDetailsButton)
 
-    // Assert - no hight button
-    expect(height).not.toBeInTheDocument()
+    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
   })
 })
