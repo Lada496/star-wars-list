@@ -16,7 +16,7 @@ type CharacterState = {
   selectedValue: SortFactor | ''
 }
 
-type CharacterAction = { type: 'sort'; sortFacter: CharacterState['selectedValue'] }
+type CharacterAction = { type: 'sort'; sortFactor: CharacterState['selectedValue'] }
 
 const sort = (characters: ModifiedCharacter[], key: SortFactor) =>
   characters.sort((a, b) => (b[key] || 0) - (a[key] || 0))
@@ -24,19 +24,19 @@ const sort = (characters: ModifiedCharacter[], key: SortFactor) =>
 const characterReducer = (state: CharacterState, action: CharacterAction): CharacterState => {
   switch (action.type) {
     case 'sort':
-      if (action.sortFacter === 'height' || action.sortFacter === 'mass') {
+      if (action.sortFactor === 'height' || action.sortFactor === 'mass') {
         const newModifiedCharacters = [...state.modifiedCharacters]
-        sort(newModifiedCharacters, action.sortFacter)
+        sort(newModifiedCharacters, action.sortFactor)
         return {
           originalCharacters: state.originalCharacters,
           modifiedCharacters: newModifiedCharacters,
-          selectedValue: action.sortFacter,
+          selectedValue: action.sortFactor,
         }
       }
       return {
         originalCharacters: state.originalCharacters,
         modifiedCharacters: state.originalCharacters,
-        selectedValue: action.sortFacter,
+        selectedValue: action.sortFactor,
       }
 
     // TODO: add filter logic

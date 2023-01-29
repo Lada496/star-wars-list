@@ -17,7 +17,7 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as SortFactor
-    dispatch({ type: 'sort', sortFacter: value })
+    dispatch({ type: 'sort', sortFactor: value })
   }
 
   return (
