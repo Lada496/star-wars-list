@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isEmpty } from 'lodash'
 import {
   UnorderedList,
   Heading,
@@ -12,16 +13,58 @@ import { ModifiedCharacter } from '../../api/starWars-types'
 import ListItemWithoutBullet from '../UI/ListItemWithoutBullet/ListItemWithoutBullet'
 import CharacterDetails from '../CharacterDetails/CharacterDetails'
 
-type WithoutIdCharacter = Omit<ModifiedCharacter, 'id'>
+export type WithoutIdCharacter = Omit<ModifiedCharacter, 'id'>
 
 type CharacterItemProps = {
   character: WithoutIdCharacter
 }
 
 const CharacterItem = ({ character }: CharacterItemProps) => {
-  // delete id property from details props
-  const { name, image, species, gender, ...others } = character
+  const { name, image, species, gender, ...details } = character
+  const hasDetails = !isEmpty(details)
   const [isShowDetails, setIsShowDetails] = useState(false)
+
+  const CommonContent = (
+    <>
+      <ListItemWithoutBullet>Species: {species}</ListItemWithoutBullet>
+      <ListItemWithoutBullet>Gender: {gender}</ListItemWithoutBullet>
+      {character.bmi && <ListItemWithoutBullet>BMI: {character.bmi}</ListItemWithoutBullet>}
+    </>
+  )
+
+  const hasDetailsContent = (
+    <>
+      <UnorderedList role='character-details'>
+        {CommonContent}
+        {isShowDetails && <CharacterDetails details={details} />}
+      </UnorderedList>
+
+      <Button
+        mt={5}
+        fontSize='sm'
+        bg='black'
+        color='white'
+        borderRadius='0'
+        _hover={{
+          color: 'black',
+          bg: 'gray.300',
+        }}
+        onClick={() => setIsShowDetails(!isShowDetails)}
+      >
+        {isShowDetails ? 'Hide details' : 'View details'}
+      </Button>
+    </>
+  )
+
+  const noDetailsContent = (
+    <>
+      <UnorderedList role='character-details'>
+        {CommonContent}
+        <>No Detailed Data</>
+      </UnorderedList>
+    </>
+  )
+
   return (
     <ListItemWithoutBullet>
       <Center py={6} role='character-item'>
@@ -41,27 +84,7 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
           <Heading as='h2' fontSize='xl'>
             {name}
           </Heading>
-          <UnorderedList role='character-details'>
-            <ListItemWithoutBullet>Species: {species}</ListItemWithoutBullet>
-            <ListItemWithoutBullet>Gender: {gender}</ListItemWithoutBullet>
-            {character.bmi && <ListItemWithoutBullet>BMI: {character.bmi}</ListItemWithoutBullet>}
-
-            {isShowDetails && <CharacterDetails details={others} />}
-          </UnorderedList>
-          <Button
-            mt={5}
-            fontSize='sm'
-            bg='black'
-            color='white'
-            borderRadius='0'
-            _hover={{
-              color: 'black',
-              bg: 'gray.300',
-            }}
-            onClick={() => setIsShowDetails(!isShowDetails)}
-          >
-            {isShowDetails ? 'Hide details' : 'View details'}
-          </Button>
+          {hasDetails ? hasDetailsContent : noDetailsContent}
         </Box>
       </Center>
     </ListItemWithoutBullet>

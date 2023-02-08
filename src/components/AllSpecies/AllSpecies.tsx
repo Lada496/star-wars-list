@@ -1,68 +1,39 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import { Heading, Select, Box } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
+import useModifyCharacters, { SORT_FACTOR, SortFactor } from '../../hooks/useModifyCharacters'
 import CharacterList from '../CharacterList/CharacterList'
 
 type AllSpeciesProps = {
   characters: ModifiedCharacter[]
 }
 
-type CharacterState = {
-  originalCharacters: ModifiedCharacter[]
-  modifiedCharacters: ModifiedCharacter[]
-  selectedValue: string
-}
-
-type Action = { type: 'filter'; event: CharacterState['selectedValue'] }
-
-type Key = 'mass' | 'height'
-
-const sort = (characters: ModifiedCharacter[], key: Key) =>
-  characters.sort((a, b) => (b[key] || 0) - (a[key] || 0))
-
-const characterReducer = (state: CharacterState, action: Action): CharacterState => {
-  switch (action.type) {
-    case 'filter':
-      if (action.event === 'height' || action.event === 'mass') {
-        const newModifiedCharacters = [...state.modifiedCharacters]
-        sort(newModifiedCharacters, action.event)
-        return {
-          originalCharacters: state.originalCharacters,
-          modifiedCharacters: newModifiedCharacters,
-          selectedValue: action.event,
-        }
-      }
-      return {
-        originalCharacters: state.originalCharacters,
-        modifiedCharacters: state.originalCharacters,
-        selectedValue: action.event,
-      }
-
-    // TODO: add filter logic
-    default:
-      return state
-  }
-}
-
 const AllSpecies = ({ characters }: AllSpeciesProps) => {
-  const [state, dispatch] = useReducer(characterReducer, {
+  const { state, dispatch } = useModifyCharacters({
     originalCharacters: characters,
     modifiedCharacters: characters,
     selectedValue: '',
   })
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value as SortFactor
+    dispatch({ type: 'sort', sortFactor: value })
+  }
 
   return (
     <Box>
       <Heading as='h1' size='lg'>
         All characters
       </Heading>
-      <Select
-        placeholder='Sort by'
-        value={state.selectedValue}
-        onChange={(e) => dispatch({ type: 'filter', event: e.target.value })}
-      >
-        <option value='height'>Height</option>
-        <option value='mass'>Mass</option>
+      <Select placeholder='Sort by' value={state.selectedValue} onChange={handleChange}>
+        {Object.keys(SORT_FACTOR).map((sortFactorKey) => (
+          <option
+            key={sortFactorKey}
+            value={SORT_FACTOR[sortFactorKey as keyof typeof SORT_FACTOR]}
+          >
+            {SORT_FACTOR[sortFactorKey as keyof typeof SORT_FACTOR]}
+          </option>
+        ))}
       </Select>
       <CharacterList characters={state.modifiedCharacters} />
     </Box>

@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UnorderedList } from '@chakra-ui/react'
-import { ModifiedCharacter } from '../../api/starWars-types'
-import CharacterItem from './CharacterItem'
+import CharacterItem, { WithoutIdCharacter } from './CharacterItem'
 
-const withBmiCharacter: ModifiedCharacter = {
-  id: 1,
+const withBmiCharacter: WithoutIdCharacter = {
   name: 'Full Name',
   image: 'image.com',
   gender: 'gender',
@@ -15,8 +13,7 @@ const withBmiCharacter: ModifiedCharacter = {
   mass: 73,
 }
 
-const withoutBmiCharacter: ModifiedCharacter = {
-  id: 1,
+const withoutBmiCharacter: WithoutIdCharacter = {
   name: 'Full Name',
   image: 'image.com',
   gender: 'gender',
@@ -46,6 +43,20 @@ describe('CharacterItem', () => {
     expect(bmi).not.toBeInTheDocument()
   })
 
+  test('renders properly when no detailed data available', async () => {
+    render(
+      <UnorderedList>
+        <CharacterItem character={withoutBmiCharacter} />
+      </UnorderedList>,
+    )
+
+    const viewDetailsButton = screen.queryByRole('button', { name: /view details/i })
+    const noDetailsDataMessage = screen.getByText(/no detailed data/i)
+
+    expect(viewDetailsButton).not.toBeInTheDocument()
+    expect(noDetailsDataMessage).toBeInTheDocument()
+  })
+
   test('show details when users click the button and hide them when users click it again', async () => {
     render(
       <UnorderedList>
@@ -53,16 +64,21 @@ describe('CharacterItem', () => {
       </UnorderedList>,
     )
     const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
+    const heightQuery = /height/i
 
-    // show details
+    // Make sure undesired element is rendered by default
+    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
+
+    // Show details
     userEvent.click(viewDetailsButton)
-    const height = await screen.findByText(/height/i)
-    expect(height).toBeInTheDocument()
-    const hideDetailsButton = await screen.getByRole('button', { name: /hide details/i })
 
-    // hide details
+    expect(screen.queryByText(heightQuery)).toBeInTheDocument()
+
+    const hideDetailsButton = screen.getByRole('button', { name: /hide details/i })
+
+    // Hide details
     userEvent.click(hideDetailsButton)
-    const noHeight = await screen.queryByText(/height/i)
-    expect(noHeight).not.toBeInTheDocument()
+
+    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
   })
 })

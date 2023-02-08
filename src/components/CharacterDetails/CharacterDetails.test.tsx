@@ -20,11 +20,6 @@ describe('CharacterDetails', () => {
     // not render bmi as it is default information
     expect(detailsItems).toHaveLength(2)
   })
-  test('render no detailed data message when empty object', () => {
-    render(<CharacterDetails details={{}} />)
-    const noDataMessage = screen.getByText(/no detailed data/i)
-    expect(noDataMessage).toBeInTheDocument()
-  })
   test('render height properly when it is 0 ', () => {
     render(<CharacterDetails details={{ height: 0 }} />)
     const heightIs0m = screen.queryByText(0)
