@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RowCharacter, CategorizedCharacters, ModifiedCharacter } from './starWars-types'
+import { RowCharacter, CategorizedCharacters } from './starWars-types'
 import { modifyRowCharacters, categorizeCharacters } from './starWars-utils'
 
 export const starWarsApi = createApi({
@@ -18,11 +18,4 @@ export const starWarsApi = createApi({
   }),
 })
 
-// actions for updating only cache
-// ⚠️ this is an experomental operation
-export const updateFilter = (characters: ModifiedCharacter[]) =>
-  starWarsApi.util.updateQueryData('getCharacters', undefined, (draftPosts) => ({
-    ...draftPosts,
-    new: characters,
-  }))
 export const { useGetCharactersQuery } = starWarsApi
