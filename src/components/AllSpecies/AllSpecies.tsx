@@ -3,11 +3,12 @@ import { Heading, Select, Box, SimpleGrid } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import useModifyCharacters, {
   SORT_FACTOR,
-  FILTER_FACTER,
+  FILTER_FACTOR,
   SortFactor,
   FilterFactor,
 } from '../../hooks/useModifyCharacters'
 import CharacterList from '../CharacterList/CharacterList'
+import Selector from '../UI/Selector/Selector'
 
 type AllSpeciesProps = {
   characters: ModifiedCharacter[]
@@ -34,29 +35,27 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
     originalCharacters: characters,
     renderedCharacters: characters,
     sortFactor: '',
-    homeworldFilters: filterTargets(characters, FILTER_FACTER.HOMEWORLD),
-    genderFilters: filterTargets(characters, FILTER_FACTER.GENDER),
+    homeworldFilters: filterTargets(characters, FILTER_FACTOR.HOMEWORLD),
+    genderFilters: filterTargets(characters, FILTER_FACTOR.GENDER),
     filterTargets: {
       homelandTarget: '',
       genderTarget: '',
     },
   })
 
-  console.log(characters.filter((character) => character.gender !== 'male'))
-
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as SortFactor
     dispatch({ type: 'sort', sortFactor: value })
   }
 
-  const handleHomeworldFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleHomelandFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
-    dispatch({ type: 'filter', filterFactor: FILTER_FACTER.HOMEWORLD, filterTarget: value })
+    dispatch({ type: 'filter', filterFactor: FILTER_FACTOR.HOMEWORLD, filterTarget: value })
   }
 
-  const handleGengerFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleGenderFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value
-    dispatch({ type: 'filter', filterFactor: FILTER_FACTER.GENDER, filterTarget: value })
+    dispatch({ type: 'filter', filterFactor: FILTER_FACTOR.GENDER, filterTarget: value })
   }
 
   return (
@@ -65,40 +64,38 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
         All characters
       </Heading>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='10px'>
-        <Select placeholder='Sort by' value={state.sortFactor} onChange={handleSortChange}>
-          {Object.keys(SORT_FACTOR).map((sortFactorKey) => (
-            <option
-              key={sortFactorKey}
-              value={SORT_FACTOR[sortFactorKey as keyof typeof SORT_FACTOR]}
-            >
-              {SORT_FACTOR[sortFactorKey as keyof typeof SORT_FACTOR]}
+        <Select
+          placeholder='Sort by'
+          value={state.sortFactor}
+          onChange={handleSortChange}
+          aria-label='sort'
+        >
+          {Object.values(SORT_FACTOR).map((sortFactor) => (
+            <option key={sortFactor} value={sortFactor}>
+              {sortFactor}
             </option>
           ))}
         </Select>
-        <Select
+        <Selector
           placeholder='Filter by characters homeland'
           value={state.filterTargets.homelandTarget}
-          onChange={handleHomeworldFilter}
-        >
-          {state.homeworldFilters.map((filterElement) => (
-            <option key={filterElement} value={filterElement}>
-              {filterElement}
-            </option>
-          ))}
-        </Select>
-        <Select
+          onChange={handleHomelandFilter}
+          options={state.homeworldFilters}
+          label='homeland filter'
+        />
+        <Selector
           placeholder='Filter by characters gender'
           value={state.filterTargets.genderTarget}
-          onChange={handleGengerFilter}
-        >
-          {state.genderFilters.map((filterElement) => (
-            <option key={filterElement} value={filterElement}>
-              {filterElement}
-            </option>
-          ))}
-        </Select>
+          onChange={handleGenderFilter}
+          options={state.genderFilters}
+          label='gender filter'
+        />
       </SimpleGrid>
-      <CharacterList characters={state.renderedCharacters} />
+      {state.renderedCharacters.length > 0 ? (
+        <CharacterList characters={state.renderedCharacters} />
+      ) : (
+        <p>No character matched</p>
+      )}
     </Box>
   )
 }
