@@ -41,9 +41,9 @@ describe('AllSpecies', () => {
     const droids = screen.getAllByText(/droid/i)
     expect(droids.length).toBeGreaterThan(0)
   })
-  test('render characters descendingly sorted by their height ', async () => {
+  test('render characters descendingly sorted by their height ', () => {
     render(<AllSpecies characters={charactersForSort} />)
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'height')
+    userEvent.selectOptions(screen.getByLabelText('sort'), 'height')
     const characters = screen.getAllByRole('character-item')
 
     expect(characters[0]).toHaveTextContent('b')
@@ -51,9 +51,9 @@ describe('AllSpecies', () => {
     expect(characters[2]).toHaveTextContent('c')
   })
 
-  test('render characters descendingly sorted by their mass ', async () => {
+  test('render characters descendingly sorted by their mass ', () => {
     render(<AllSpecies characters={charactersForSort} />)
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'mass')
+    userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
     const characters = screen.getAllByRole('character-item')
 
     expect(characters[0]).toHaveTextContent('c')
@@ -61,13 +61,13 @@ describe('AllSpecies', () => {
     expect(characters[2]).toHaveTextContent('a')
   })
 
-  test('render characters get back to the original order when user select Sort by ', async () => {
+  test('render characters get back to the original order when user select Sort by ', () => {
     render(<AllSpecies characters={charactersForSort} />)
 
     // Change order
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'mass')
+    userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
 
-    await userEvent.selectOptions(screen.getByRole('combobox'), 'Sort by')
+    userEvent.selectOptions(screen.getByLabelText('sort'), 'Sort by')
     const characters = screen.getAllByRole('character-item')
 
     expect(characters[0]).toHaveTextContent('a')
