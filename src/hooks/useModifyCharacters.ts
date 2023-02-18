@@ -12,7 +12,7 @@ export const SORT_FACTOR = {
   HEIGHT: 'height',
 } as const
 
-export const FILTER_FACTER = {
+export const FILTER_FACTOR = {
   HOMEWORLD: 'homeworld',
   GENDER: 'gender',
 } as const
@@ -20,7 +20,7 @@ export const FILTER_FACTER = {
 // "mass" | "height"
 export type SortFactor = typeof SORT_FACTOR[keyof typeof SORT_FACTOR]
 
-export type FilterFactor = typeof FILTER_FACTER[keyof typeof FILTER_FACTER]
+export type FilterFactor = typeof FILTER_FACTOR[keyof typeof FILTER_FACTOR]
 
 type FilterTargets = {
   homelandTarget: string
@@ -55,10 +55,10 @@ const hasTarget = (
   previousGenderTarget: string,
 ) => {
   let hasTarget = false
-  if (filterFactor === FILTER_FACTER.HOMEWORLD && previousHomelandTarget !== '') {
+  if (filterFactor === FILTER_FACTOR.HOMEWORLD && previousHomelandTarget !== '') {
     hasTarget = true
   }
-  if (filterFactor === FILTER_FACTER.GENDER && previousGenderTarget !== '') {
+  if (filterFactor === FILTER_FACTOR.GENDER && previousGenderTarget !== '') {
     hasTarget = true
   }
   return hasTarget
@@ -79,15 +79,17 @@ const characterReducer = (state: CharacterState, action: CharacterAction): Chara
       const homelandTarget = state.filterTargets.homelandTarget
       const genderTarget = state.filterTargets.genderTarget
       let newRenderedCharacters = state.originalCharacters
+
+      // Check if users have already filtered or not
       if (homelandTarget) {
         newRenderedCharacters = filter(
           newRenderedCharacters,
-          FILTER_FACTER.HOMEWORLD,
+          FILTER_FACTOR.HOMEWORLD,
           homelandTarget,
         )
       }
       if (genderTarget) {
-        newRenderedCharacters = filter(newRenderedCharacters, FILTER_FACTER.GENDER, genderTarget)
+        newRenderedCharacters = filter(newRenderedCharacters, FILTER_FACTOR.GENDER, genderTarget)
       }
       return {
         ...state,
@@ -96,24 +98,44 @@ const characterReducer = (state: CharacterState, action: CharacterAction): Chara
       }
     }
 
-    // TODO: add filter logic
     case CHARACTER_ACTION_TYPES.FILTER: {
       const filterFactor = action.filterFactor
       const filterTarget = action.filterTarget
       const sortFactor = state.sortFactor
       const previousHomelandTarget = state.filterTargets.homelandTarget
       const previousGenderTarget = state.filterTargets.genderTarget
+
+      // When users choose target: Apply new filter and keep other modifications
       if (filterTarget) {
         let newRenderedCharacters: ModifiedCharacter[]
 
+        // Check if we can use previous renderedCharacters or not
         if (hasTarget(filterFactor, previousHomelandTarget, previousGenderTarget)) {
+          // 1. Reset with new filterTarget
           newRenderedCharacters = filter(state.originalCharacters, filterFactor, filterTarget)
+
+          // 2. Get back other modifications
+          if (filterFactor === FILTER_FACTOR.HOMEWORLD && previousGenderTarget) {
+            newRenderedCharacters = filter(
+              newRenderedCharacters,
+              FILTER_FACTOR.GENDER,
+              previousGenderTarget,
+            )
+          }
+
+          if (filterFactor === FILTER_FACTOR.GENDER && previousHomelandTarget) {
+            newRenderedCharacters = filter(
+              newRenderedCharacters,
+              FILTER_FACTOR.HOMEWORLD,
+              previousHomelandTarget,
+            )
+          }
+
+          if (sortFactor) {
+            sort(newRenderedCharacters, sortFactor)
+          }
         } else {
           newRenderedCharacters = filter(state.renderedCharacters, filterFactor, filterTarget)
-        }
-
-        if (sortFactor) {
-          sort(newRenderedCharacters, sortFactor)
         }
 
         return {
@@ -121,17 +143,37 @@ const characterReducer = (state: CharacterState, action: CharacterAction): Chara
           renderedCharacters: newRenderedCharacters,
           filterTargets: {
             homelandTarget:
-              filterFactor === FILTER_FACTER.HOMEWORLD
+              filterFactor === FILTER_FACTOR.HOMEWORLD
                 ? filterTarget
                 : state.filterTargets.homelandTarget,
             genderTarget:
-              filterFactor === FILTER_FACTER.GENDER
+              filterFactor === FILTER_FACTOR.GENDER
                 ? filterTarget
                 : state.filterTargets.genderTarget,
           },
         }
       }
+
+      // Default: Reset only chosen filterFactor and remain the other filter and sort if necessaru
+      // 1. Reset renderedCharacters
       let newRenderedCharacters = state.originalCharacters
+
+      // 2. Get back other modifications
+      if (filterFactor === FILTER_FACTOR.HOMEWORLD && previousGenderTarget) {
+        newRenderedCharacters = filter(
+          newRenderedCharacters,
+          FILTER_FACTOR.GENDER,
+          previousGenderTarget,
+        )
+      }
+
+      if (filterFactor === FILTER_FACTOR.GENDER && previousHomelandTarget) {
+        newRenderedCharacters = filter(
+          newRenderedCharacters,
+          FILTER_FACTOR.HOMEWORLD,
+          previousHomelandTarget,
+        )
+      }
       if (sortFactor) {
         newRenderedCharacters = [...newRenderedCharacters]
         sort(newRenderedCharacters, sortFactor)
@@ -141,11 +183,11 @@ const characterReducer = (state: CharacterState, action: CharacterAction): Chara
         renderedCharacters: newRenderedCharacters,
         filterTargets: {
           homelandTarget:
-            filterFactor === FILTER_FACTER.HOMEWORLD
+            filterFactor === FILTER_FACTOR.HOMEWORLD
               ? filterTarget
               : state.filterTargets.homelandTarget,
           genderTarget:
-            filterFactor === FILTER_FACTER.GENDER ? filterTarget : state.filterTargets.genderTarget,
+            filterFactor === FILTER_FACTOR.GENDER ? filterTarget : state.filterTargets.genderTarget,
         },
       }
     }
