@@ -3,7 +3,8 @@ import { RowCharacter, ModifiedCharacter, CategorizedCharacters } from './starWa
 export const modifyRowCharacters = (characters: RowCharacter[]): ModifiedCharacter[] => {
   const modifiedCharacters: ModifiedCharacter[] = []
   const calcBMI = (height: number, mass: number): number => +(mass / Math.pow(height, 2)).toFixed(2)
-  const convertToStarWarsDating = (year: number) => (year > 0 ? `${year} ABY` : `${year} BBY`)
+  const convertToStarWarsDating = (year: number) =>
+    year > 0 ? `${year} ABY` : `${Math.abs(year)} BBY`
   for (const character of characters) {
     const bmi =
       character.height && character.mass ? calcBMI(character.height, character.mass) : undefined
