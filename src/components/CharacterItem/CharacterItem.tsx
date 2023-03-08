@@ -80,7 +80,7 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
           borderColor='black'
           boxShadow={useColorModeValue('6px 6px 0 black', '6px 6px 0 cyan')}
         >
-          <Avatar src={image} size='xl' mb={4} pos='relative' />
+          <Avatar src={image} size='xl' mb={4} pos='relative' border='2px solid #E2E8F0' />
           <Heading as='h2' fontSize='xl'>
             {name}
           </Heading>
