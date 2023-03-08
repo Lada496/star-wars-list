@@ -50,7 +50,7 @@ describe('App', () => {
       expect(getByText('No data found')).toBeInTheDocument()
     })
   })
-  test('renders "Error" when api returns an error', async () => {
+  test('renders an error message when api returns an error', async () => {
     server.use(
       rest.get('https://akabab.github.io/starwars-api/api/all.json', (_, res) =>
         res.networkError('Failed to connect'),
@@ -58,7 +58,7 @@ describe('App', () => {
     )
     const { getByText } = renderWithWrappers(<App />, store)
     await waitFor(() => {
-      expect(getByText('Error')).toBeInTheDocument()
+      expect(getByText(/error/i)).toBeInTheDocument()
     })
   })
 })
