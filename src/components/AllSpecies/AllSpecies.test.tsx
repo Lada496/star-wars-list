@@ -53,12 +53,15 @@ const mockCharacters = [
     homeworld: 'Kashyyyk',
     born: '200BBY',
   },
-];
+]
 
-const testFiltersAndSorts = (renderedCharacters:HTMLElement[], modifiedCharactersName: string[])=>{
+const testFiltersAndSorts = (
+  renderedCharacters: HTMLElement[],
+  modifiedCharactersName: string[],
+) => {
   expect(renderedCharacters).toHaveLength(modifiedCharactersName.length)
 
-  for(let i = 0; i < modifiedCharactersName.length ; i++) {
+  for (let i = 0; i < modifiedCharactersName.length; i++) {
     expect(renderedCharacters[i]).toHaveTextContent(modifiedCharactersName[i])
   }
 }
@@ -73,15 +76,17 @@ describe('AllSpecies', () => {
   })
 })
 
-describe('AllSpecies | tests for filters and sorts', ()=>{
+describe('AllSpecies | tests for filters and sorts', () => {
   test('render characters filtered by homeworld with no sort ', () => {
     render(<AllSpecies characters={mockCharacters} />)
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
 
-    const homelandFilter = mockCharacters.filter(character => character.homeworld === mockCharacters[0].homeworld)
+    const homelandFilter = mockCharacters.filter(
+      (character) => character.homeworld === mockCharacters[0].homeworld,
+    )
 
     const characters = screen.getAllByRole('character-item')
-    const characterNames = homelandFilter.map(character => character.name)
+    const characterNames = homelandFilter.map((character) => character.name)
 
     testFiltersAndSorts(characters, characterNames)
   })
@@ -91,10 +96,10 @@ describe('AllSpecies | tests for filters and sorts', ()=>{
 
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
 
-    const genderFilter = mockCharacters.filter(character => character.gender === 'male')
+    const genderFilter = mockCharacters.filter((character) => character.gender === 'male')
 
     const characters = screen.getAllByRole('character-item')
-    const characterNames = genderFilter.map(character => character.name)
+    const characterNames = genderFilter.map((character) => character.name)
 
     testFiltersAndSorts(characters, characterNames)
   })
@@ -105,122 +110,155 @@ describe('AllSpecies | tests for filters and sorts', ()=>{
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
 
-    const homelandFilter = mockCharacters.filter(character=> character.homeworld === mockCharacters[0].homeworld)
+    const homelandFilter = mockCharacters.filter(
+      (character) => character.homeworld === mockCharacters[0].homeworld,
+    )
 
-    const characterNames = homelandFilter.map(character => character.name)
+    const characterNames = homelandFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by height', ()=>{
+  test('render characters sorted by height', () => {
     render(<AllSpecies characters={mockCharacters} />)
     userEvent.selectOptions(screen.getByLabelText('sort'), 'height')
 
-    const heightSort = [...mockCharacters].sort((a, b) => b.height - a.height);
+    const heightSort = [...mockCharacters].sort((a, b) => b.height - a.height)
 
-    const characterNames = heightSort.map(character => character.name)
+    const characterNames = heightSort.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by height and filtered by homeland', ()=>{
+  test('render characters sorted by height and filtered by homeland', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'height')
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
 
-    const heightSortHomelandFilter = mockCharacters.filter((character)=>character.homeworld === mockCharacters[0].homeworld).sort((a, b)=>b.height - a.height)
+    const heightSortHomelandFilter = mockCharacters
+      .filter((character) => character.homeworld === mockCharacters[0].homeworld)
+      .sort((a, b) => b.height - a.height)
 
-    const characterNames = heightSortHomelandFilter.map(character => character.name)
+    const characterNames = heightSortHomelandFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
-    testFiltersAndSorts(characters, characterNames)  
+    testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by height and filtered by gender', ()=>{
+  test('render characters sorted by height and filtered by gender', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'height')
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
 
-    const heightSortGenderFilter = mockCharacters.filter((character)=>character.gender === mockCharacters[0].gender).sort((a, b)=>b.height - a.height)
+    const heightSortGenderFilter = mockCharacters
+      .filter((character) => character.gender === mockCharacters[0].gender)
+      .sort((a, b) => b.height - a.height)
 
-    const characterNames = heightSortGenderFilter.map(character=>character.name)
+    const characterNames = heightSortGenderFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by height with both gender and homeland filters', ()=>{
+  test('render characters sorted by height with both gender and homeland filters', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'height')
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
 
-    const heightSortGenderAndHomelandFilter = mockCharacters.filter(character=>character.gender === 'male').filter(character => character.homeworld === mockCharacters[0].homeworld).sort((a,b)=>b.height - a.height)
+    const heightSortGenderAndHomelandFilter = mockCharacters
+      .filter((character) => character.gender === 'male')
+      .filter((character) => character.homeworld === mockCharacters[0].homeworld)
+      .sort((a, b) => b.height - a.height)
 
-    const characterNames = heightSortGenderAndHomelandFilter.map(character=>character.name)
+    const characterNames = heightSortGenderAndHomelandFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by mass with no filter', ()=>{
+  test('render characters sorted by mass with no filter', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
 
-    const massSort = [...mockCharacters].sort((a, b)=>b.mass - a.mass)
+    const massSort = [...mockCharacters].sort((a, b) => b.mass - a.mass)
 
-    const characterNames = massSort.map(character => character.name)
+    const characterNames = massSort.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by mass with homeland filter', ()=>{
+  test('render characters sorted by mass with homeland filter', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
 
-    const massSortHomelandFilter = mockCharacters.filter(character=> character.homeworld === mockCharacters[0].homeworld).sort((a, b)=>b.mass - a.mass)
+    const massSortHomelandFilter = mockCharacters
+      .filter((character) => character.homeworld === mockCharacters[0].homeworld)
+      .sort((a, b) => b.mass - a.mass)
 
-    const characterNames = massSortHomelandFilter.map(character=>character.name)
+    const characterNames = massSortHomelandFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by mass with gender filter', ()=>{
+  test('render characters sorted by mass with gender filter', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
 
-    const massSortGenderFilter = mockCharacters.filter(character=>character.gender === 'male').sort((a, b)=>b.mass - a.mass)
+    const massSortGenderFilter = mockCharacters
+      .filter((character) => character.gender === 'male')
+      .sort((a, b) => b.mass - a.mass)
 
-    const characterNames = massSortGenderFilter.map(character=>character.name)
+    const characterNames = massSortGenderFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
   })
 
-  test('render characters sorted by mass with both gender and homeland filters', ()=>{
+  test('render characters sorted by mass with both gender and homeland filters', () => {
     render(<AllSpecies characters={mockCharacters} />)
 
     userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
     userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
 
-    const massSortHomelandGenderFilter = mockCharacters.filter(character=>character.gender === 'male').filter(character=> character.homeworld === mockCharacters[0].homeworld).sort((a, b)=>b.mass - a.mass)
+    const massSortHomelandGenderFilter = mockCharacters
+      .filter((character) => character.gender === 'male')
+      .filter((character) => character.homeworld === mockCharacters[0].homeworld)
+      .sort((a, b) => b.mass - a.mass)
 
-    const characterNames = massSortHomelandGenderFilter.map(character=>character.name)
+    const characterNames = massSortHomelandGenderFilter.map((character) => character.name)
     const characters = screen.getAllByRole('character-item')
 
     testFiltersAndSorts(characters, characterNames)
+  })
+
+  test('reset all filters and sorts when users click reset button', () => {
+    render(<AllSpecies characters={mockCharacters} />)
+
+    // Filters and Sorts event
+    userEvent.selectOptions(screen.getByLabelText('sort'), 'mass')
+    userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
+    userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
+
+    // Reset event
+    userEvent.click(screen.getByLabelText('reset button'))
+
+    const characters = screen.getAllByRole('character-item')
+    const charactersName = mockCharacters.map((character) => character.name)
+
+    testFiltersAndSorts(characters, charactersName)
   })
 })

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Heading, Box, SimpleGrid } from '@chakra-ui/react'
+import { Heading, Box, SimpleGrid, IconButton } from '@chakra-ui/react'
+import { RepeatIcon } from '@chakra-ui/icons'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import useModifyCharacters, {
   CHARACTER_ACTION_TYPES,
@@ -15,8 +16,6 @@ type AllSpeciesProps = {
   characters: ModifiedCharacter[]
 }
 
-
-
 const AllSpecies = ({ characters }: AllSpeciesProps) => {
   const { charactersState, dispatch } = useModifyCharacters({
     originalCharacters: characters,
@@ -24,23 +23,44 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
     sortFactor: '',
     homeworldFilters: getfilterTargets(characters, FILTER_FACTOR.HOMEWORLD),
     genderFilters: getfilterTargets(characters, FILTER_FACTOR.GENDER),
-    homeworldFilterTarget:'',
-    genderFilterTarget: ''
+    homeworldFilterTarget: '',
+    genderFilterTarget: '',
   })
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const usersSortChoice = event.target.value as SortFactor
-    dispatch ({ type: CHARACTER_ACTION_TYPES.MODIFY, sortFactor: usersSortChoice, homeworldFilterTarget: charactersState.homeworldFilterTarget,  genderFilterTarget: charactersState.genderFilterTarget})
+    dispatch({
+      type: CHARACTER_ACTION_TYPES.MODIFY,
+      sortFactor: usersSortChoice,
+      homeworldFilterTarget: charactersState.homeworldFilterTarget,
+      genderFilterTarget: charactersState.genderFilterTarget,
+    })
   }
 
   const handleHomelandFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const usersHomelandFilterChoice = event.target.value
-    dispatch({type: CHARACTER_ACTION_TYPES.MODIFY, sortFactor: charactersState.sortFactor, homeworldFilterTarget: usersHomelandFilterChoice, genderFilterTarget: charactersState.genderFilterTarget})
+    dispatch({
+      type: CHARACTER_ACTION_TYPES.MODIFY,
+      sortFactor: charactersState.sortFactor,
+      homeworldFilterTarget: usersHomelandFilterChoice,
+      genderFilterTarget: charactersState.genderFilterTarget,
+    })
   }
 
   const handleGenderFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const usersGenderFilterChoice = event.target.value
-    dispatch({type: CHARACTER_ACTION_TYPES.MODIFY, sortFactor: charactersState.sortFactor, homeworldFilterTarget: charactersState.homeworldFilterTarget, genderFilterTarget: usersGenderFilterChoice})
+    dispatch({
+      type: CHARACTER_ACTION_TYPES.MODIFY,
+      sortFactor: charactersState.sortFactor,
+      homeworldFilterTarget: charactersState.homeworldFilterTarget,
+      genderFilterTarget: usersGenderFilterChoice,
+    })
+  }
+
+  const resetHandler = () => {
+    dispatch({
+      type: CHARACTER_ACTION_TYPES.RESET,
+    })
   }
 
   return (
@@ -48,12 +68,14 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
       <Heading as='h1' size='lg'>
         All characters
       </Heading>
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing='10px'>
-        <Selector placeholder='Sort by'
+      <SimpleGrid flex='1' columns={{ sm: 1, md: 2, lg: 4 }} spacing='10px'>
+        <Selector
+          placeholder='Sort by'
           value={charactersState.sortFactor}
           onChange={handleSortChange}
           options={Object.values(SORT_FACTOR)}
-          label='sort'/>
+          label='sort'
+        />
         <Selector
           placeholder='Filter by characters homeland'
           value={charactersState.homeworldFilterTarget}
@@ -67,6 +89,12 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
           onChange={handleGenderFilter}
           options={charactersState.genderFilters}
           label='gender filter'
+        />
+        <IconButton
+          onClick={resetHandler}
+          colorScheme='blackAlpha'
+          aria-label='reset button'
+          icon={<RepeatIcon />}
         />
       </SimpleGrid>
       {charactersState.renderedCharacters.length > 0 ? (
