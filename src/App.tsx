@@ -5,16 +5,25 @@ import { isEmpty } from 'lodash'
 import Tabs from './components/UI/Tabs/Tabs'
 import SpeciesItem from './components/SpeciesItem/SpeciesItem'
 import Layout from './layouts/PageContainer'
-import { useGetCharactersQuery } from './api/starWars-api'
+import LoadingSpinner from './components/UI/LoadingSpinner/LoadingSpinner'
 import AllSpecies from './components/AllSpecies/AllSpecies'
+import Message, { MESSAGE_STATUS } from './components/UI/Message/Message'
+import { useGetCharactersQuery } from './api/starWars-api'
 
 function App() {
   const { data, error, isLoading } = useGetCharactersQuery(undefined)
 
-  // TODO: create these components
-  if (isLoading) return <div>Loading</div>
-  if (error) return <div>Error</div>
-  if (!data || isEmpty(data)) return <div>No data found</div>
+  if (isLoading) return <LoadingSpinner />
+  if (error)
+    return (
+      <Message
+        status={MESSAGE_STATUS.ERROR}
+        title='Fetch Error'
+        message='Failed to fetch data. Please try it later!'
+      />
+    )
+  if (!data || isEmpty(data))
+    return <Message status={MESSAGE_STATUS.WARNING} title='No data found' />
 
   const { all, ...charactersBySpecies } = data
 
