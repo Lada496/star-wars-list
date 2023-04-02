@@ -4,7 +4,7 @@ import logoImage from '../assets/star-wars-logo.png'
 
 const Navigation = () => {
   return (
-    <Box as='header' w='100%' bg='#221F20'>
+    <Box as='header' w='100%' bg='black.900'>
       <Image src={logoImage} alt='Star Wars logo' htmlWidth='150px' />
     </Box>
   )

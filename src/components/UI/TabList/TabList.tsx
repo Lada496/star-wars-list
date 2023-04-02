@@ -16,7 +16,7 @@ const TabList = ({ tabKeys }: TabListProps) => {
           to={tabKey}
           textTransform='capitalize'
           textAlign='center'
-          _activeLink={{ color: 'white', backgroundColor: 'black' }}
+          _activeLink={{ color: 'white', backgroundColor: 'black.900' }}
         >
           <Box m={2}>{tabKey}</Box>
         </Link>

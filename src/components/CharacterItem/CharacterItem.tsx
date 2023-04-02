@@ -42,11 +42,11 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
       <Button
         mt={5}
         fontSize='sm'
-        bg='black'
+        bg='black.900'
         color='white'
         borderRadius='0'
         _hover={{
-          color: 'black',
+          color: 'black.900',
           bg: 'gray.300',
         }}
         onClick={() => setIsShowDetails(!isShowDetails)}
@@ -77,8 +77,8 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
           p={6}
           textAlign={'center'}
           border={'1px'}
-          borderColor='black'
-          boxShadow={useColorModeValue('6px 6px 0 black', '6px 6px 0 cyan')}
+          borderColor='black.900'
+          boxShadow={useColorModeValue('6px 6px 0 #221F20', '6px 6px 0 cyan')}
         >
           <Avatar src={image} size='xl' mb={4} pos='relative' border='2px solid #E2E8F0' />
           <Heading as='h2' fontSize='xl'>
