@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ListItemWithoutBullet from '../UI/ListItemWithoutBullet/ListItemWithoutBullet'
+import ListItemWithoutBullet from '../ListItemWithoutBullet/ListItemWithoutBullet'
 
 export type CharacterDetailsObject = {
   bmi?: number

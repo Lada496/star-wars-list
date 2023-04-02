@@ -9,8 +9,8 @@ import useModifyCharacters, {
   SortFactor,
 } from '../../hooks/useModifyCharacters'
 import { getfilterTargets } from './utils/getFilterTargets'
-import CharacterList from '../CharacterList/CharacterList'
-import Selector from '../UI/Selector/Selector'
+import CharacterList from '../../components/CharacterList/CharacterList'
+import Selector from '../../components/Selector/Selector'
 
 type AllSpeciesProps = {
   characters: ModifiedCharacter[]

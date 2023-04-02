@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
-import ListItemWithoutBullet from '../UI/ListItemWithoutBullet/ListItemWithoutBullet'
+import ListItemWithoutBullet from '../ListItemWithoutBullet/ListItemWithoutBullet'
 import CharacterDetails from '../CharacterDetails/CharacterDetails'
 
 export type WithoutIdCharacter = Omit<ModifiedCharacter, 'id'>

@@ -2,12 +2,12 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 
-import Tabs from './components/UI/Tabs/Tabs'
-import SpeciesItem from './components/SpeciesItem/SpeciesItem'
+import Tabs from './components/Tabs/Tabs'
+import SpeciesItem from './pages/SpeciesItem/SpeciesItem'
 import Layout from './layouts/PageContainer'
-import LoadingSpinner from './components/UI/LoadingSpinner/LoadingSpinner'
-import AllSpecies from './components/AllSpecies/AllSpecies'
-import Message, { MESSAGE_STATUS } from './components/UI/Message/Message'
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner'
+import AllSpecies from './pages/AllSpecies/AllSpecies'
+import Message, { MESSAGE_STATUS } from './components/Message/Message'
 import { useGetCharactersQuery } from './api/starWars-api'
 
 function App() {
