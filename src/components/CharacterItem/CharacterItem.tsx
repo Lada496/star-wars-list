@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { isEmpty } from 'lodash'
 import {
   UnorderedList,
@@ -8,10 +8,11 @@ import {
   Center,
   Button,
   useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import ListItemWithoutBullet from '../ListItemWithoutBullet/ListItemWithoutBullet'
-import CharacterDetails from '../CharacterDetails/CharacterDetails'
+import ChatacterDetailsModal from '../ChatacterDetailsModal/ChatacterDetailsModal'
 
 export type WithoutIdCharacter = Omit<ModifiedCharacter, 'id'>
 
@@ -22,7 +23,7 @@ type CharacterItemProps = {
 const CharacterItem = ({ character }: CharacterItemProps) => {
   const { name, image, species, gender, ...details } = character
   const hasDetails = !isEmpty(details)
-  const [isShowDetails, setIsShowDetails] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const CommonContent = (
     <>
@@ -34,10 +35,7 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
 
   const hasDetailsContent = (
     <>
-      <UnorderedList role='character-details'>
-        {CommonContent}
-        {isShowDetails && <CharacterDetails details={details} />}
-      </UnorderedList>
+      <UnorderedList role='character-details'>{CommonContent}</UnorderedList>
 
       <Button
         mt={5}
@@ -49,10 +47,11 @@ const CharacterItem = ({ character }: CharacterItemProps) => {
           color: 'black.900',
           bg: 'gray.300',
         }}
-        onClick={() => setIsShowDetails(!isShowDetails)}
+        onClick={onOpen}
       >
-        {isShowDetails ? 'Hide details' : 'View details'}
+        View details
       </Button>
+      <ChatacterDetailsModal isOpen={isOpen} onClose={onClose} character={character} />
     </>
   )
 
