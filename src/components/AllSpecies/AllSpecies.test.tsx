@@ -254,11 +254,43 @@ describe('AllSpecies | tests for filters and sorts', () => {
     userEvent.selectOptions(screen.getByLabelText('gender filter'), 'male')
 
     // Reset event
-    userEvent.click(screen.getByLabelText('reset button'))
+    userEvent.click(screen.getByLabelText('reset all'))
 
     const characters = screen.getAllByRole('character-item')
     const charactersName = mockCharacters.map((character) => character.name)
 
     testFiltersAndSorts(characters, charactersName)
+  })
+})
+
+describe('AllSpecies | tests for "React all" button', () => {
+  test('the reset button is not renderd by default', () => {
+    render(<AllSpecies characters={mockCharacters} />)
+
+    const resetAllButton = screen.queryByLabelText('reset all')
+
+    expect(resetAllButton).not.toBeInTheDocument()
+  })
+
+  test('the reset button appears once users filter/sort the characters list', () => {
+    render(<AllSpecies characters={mockCharacters} />)
+    userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
+
+    const resetAllButton = screen.getByLabelText('reset all')
+
+    expect(resetAllButton).toBeInTheDocument()
+  })
+
+  test('the reset button disappears once users get back all filters and the sort to be the default state', () => {
+    render(<AllSpecies characters={mockCharacters} />)
+    userEvent.selectOptions(screen.getByLabelText('homeland filter'), mockCharacters[0].homeworld)
+
+    const resetAllButton = screen.getByLabelText('reset all')
+
+    expect(resetAllButton).toBeInTheDocument()
+
+    userEvent.click(resetAllButton)
+
+    expect(screen.queryByLabelText('reset all')).not.toBeInTheDocument()
   })
 })

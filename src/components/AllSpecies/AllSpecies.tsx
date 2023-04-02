@@ -1,5 +1,5 @@
-import React from 'react'
-import { Heading, Box, SimpleGrid, IconButton } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react'
+import { Heading, Box, SimpleGrid, Button } from '@chakra-ui/react'
 import { RepeatIcon } from '@chakra-ui/icons'
 import { ModifiedCharacter } from '../../api/starWars-types'
 import useModifyCharacters, {
@@ -17,6 +17,7 @@ type AllSpeciesProps = {
 }
 
 const AllSpecies = ({ characters }: AllSpeciesProps) => {
+  const [showClearButton, setShowClearButton] = useState(false)
   const { charactersState, dispatch } = useModifyCharacters({
     originalCharacters: characters,
     renderedCharacters: characters,
@@ -63,12 +64,39 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
     })
   }
 
+  useEffect(() => {
+    if (
+      charactersState.sortFactor ||
+      charactersState.homeworldFilterTarget ||
+      charactersState.genderFilterTarget
+    ) {
+      setShowClearButton(true)
+    } else {
+      setShowClearButton(false)
+    }
+  }, [
+    charactersState.sortFactor,
+    charactersState.homeworldFilterTarget,
+    charactersState.genderFilterTarget,
+  ])
+
   return (
     <Box>
       <Heading as='h1' size='lg'>
         All characters
       </Heading>
-      <SimpleGrid flex='1' columns={{ sm: 1, md: 2, lg: 4 }} spacing='10px'>
+      {showClearButton && (
+        <Button
+          leftIcon={<RepeatIcon />}
+          variant='link'
+          onClick={resetHandler}
+          colorScheme='gray'
+          aria-label='reset all'
+        >
+          Reset all
+        </Button>
+      )}
+      <SimpleGrid flex='1' columns={{ sm: 1, md: 2, lg: 3 }} spacing='10px' mt={2}>
         <Selector
           placeholder='Sort by'
           value={charactersState.sortFactor}
@@ -89,12 +117,6 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
           onChange={handleGenderFilter}
           options={charactersState.genderFilters}
           label='gender filter'
-        />
-        <IconButton
-          onClick={resetHandler}
-          colorScheme='blackAlpha'
-          aria-label='reset button'
-          icon={<RepeatIcon />}
         />
       </SimpleGrid>
       {charactersState.renderedCharacters.length > 0 ? (
