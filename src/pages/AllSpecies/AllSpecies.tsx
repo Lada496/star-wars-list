@@ -64,21 +64,16 @@ const AllSpecies = ({ characters }: AllSpeciesProps) => {
     })
   }
 
+  const shouldClearButtonPresent =
+    charactersState.sortFactor ||
+    charactersState.homeworldFilterTarget ||
+    charactersState.genderFilterTarget
+      ? true
+      : false
+
   useEffect(() => {
-    if (
-      charactersState.sortFactor ||
-      charactersState.homeworldFilterTarget ||
-      charactersState.genderFilterTarget
-    ) {
-      setShowClearButton(true)
-    } else {
-      setShowClearButton(false)
-    }
-  }, [
-    charactersState.sortFactor,
-    charactersState.homeworldFilterTarget,
-    charactersState.genderFilterTarget,
-  ])
+    setShowClearButton(shouldClearButtonPresent)
+  }, [shouldClearButtonPresent])
 
   return (
     <Box>
