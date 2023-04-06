@@ -1,6 +1,6 @@
 import React from 'react'
 import { Heading, Box } from '@chakra-ui/react'
-import CharacterList from '../CharacterList/CharacterList'
+import CharacterList from '../../components/CharacterList/CharacterList'
 import { ModifiedCharacter } from '../../api/starWars-types'
 
 type SpeciesItemProps = {

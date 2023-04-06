@@ -7,13 +7,14 @@ import { ChakraProvider } from '@chakra-ui/react'
 import './index.css'
 import App from './App'
 import { store } from './store'
+import theme from './theme/chakuraTheme'
 
 import reportWebVitals from './reportWebVitals'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <BrowserRouter>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Provider store={store}>
         <App />
       </Provider>

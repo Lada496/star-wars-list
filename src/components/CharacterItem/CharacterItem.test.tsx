@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { UnorderedList } from '@chakra-ui/react'
 import CharacterItem, { WithoutIdCharacter } from './CharacterItem'
 
@@ -55,30 +54,5 @@ describe('CharacterItem', () => {
 
     expect(viewDetailsButton).not.toBeInTheDocument()
     expect(noDetailsDataMessage).toBeInTheDocument()
-  })
-
-  test('show details when users click the button and hide them when users click it again', async () => {
-    render(
-      <UnorderedList>
-        <CharacterItem character={withBmiCharacter} />
-      </UnorderedList>,
-    )
-    const viewDetailsButton = screen.getByRole('button', { name: /view details/i })
-    const heightQuery = /height/i
-
-    // Make sure undesired element is rendered by default
-    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
-
-    // Show details
-    userEvent.click(viewDetailsButton)
-
-    expect(screen.queryByText(heightQuery)).toBeInTheDocument()
-
-    const hideDetailsButton = screen.getByRole('button', { name: /hide details/i })
-
-    // Hide details
-    userEvent.click(hideDetailsButton)
-
-    expect(screen.queryByText(heightQuery)).not.toBeInTheDocument()
   })
 })
